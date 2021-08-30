@@ -1,0 +1,43 @@
+# Machine_learning : Cancer tumour diagnosis (Benign or Malignant tissues) Categorisation
+
+# import pandas library
+import pandas as pd
+
+dataset = pd.read_csv('/content/cancer.csv')
+
+x= dataset.drop(columns= "diagnosis(1=m, 0=b)")
+# check the values
+x.head()
+
+y = dataset["diagnosis(1=m, 0=b)"]
+# check the values
+y.head()
+
+# import scikit learn for testing/splitting dataset
+from sklearn.model_selection import train_test_split
+
+x_train, x_test, y_train, y_test = train_test_split(x,y,test_size = 0.2
+
+# tensorflow for ML functionality (Use of Keras)
+import tensorflow as tf
+
+model = tf.keras.models.Sequential()
+
+# Applying Multilevel Neural Network with upto 2 layers
+
+model.add(tf.keras.layers.Dense(256, input_shape = x_train.shape,activation='sigmoid'))
+
+model.add(tf.keras.layers.Dense(256, activation='sigmoid'))
+
+model.add(tf.keras.layers.Dense(1,activation='sigmoid'))
+
+model.compile(optimizer='adam',loss='binary_crossentropy',metrics=['accuracy'])
+
+# epochs refer to the iteration count
+
+model.fit(x_train,y_train,epochs=600)
+
+model.evaluate(x_test,y_test)
+
+# Output:
+loss: 0.0700 - accuracy: 0.9649
